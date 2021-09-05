@@ -1,9 +1,6 @@
 package pl.patryklubik.myweight.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 
@@ -25,6 +22,9 @@ public class PersonalData {
     private String sex;
     @NotBlank
     private int desiredWeight;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private int userId;
 
 
     public int getId() {
