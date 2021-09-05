@@ -21,7 +21,9 @@ public class User {
     @NotBlank(message = "Password must not be blank")
     private String password;
     private boolean active;
-    private String role;
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private int roleId;
 
 
     public User() {
@@ -34,10 +36,6 @@ public class User {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -64,11 +62,11 @@ public class User {
         this.active = active;
     }
 
-    public String getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 }
