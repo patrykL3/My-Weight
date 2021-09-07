@@ -1,0 +1,5 @@
+drop table if exists roles;
+create table roles(
+    id int primary key auto_increment,
+    name varchar(100) not null,
+)
