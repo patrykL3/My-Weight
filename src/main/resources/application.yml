@@ -1,0 +1,19 @@
+
+spring:
+
+  .main:
+    banner-mode: off
+
+  .jpa:
+    #    generate-ddl: true
+    hibernate.ddl-auto: validate
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  .h2.console:
+    enabled: true
+    path: '/console'
+
+  .datasource:
+    url: 'jdbc:h2:C:/Users/Public/myWeight'
+    username: 'sa'
+
