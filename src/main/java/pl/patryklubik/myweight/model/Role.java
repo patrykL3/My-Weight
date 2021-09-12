@@ -2,6 +2,7 @@ package pl.patryklubik.myweight.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -18,8 +19,14 @@ public class Role {
     private int id;
     @NotBlank
     private String name;
-    @OneToMany
-    private Set<Permission> permissions;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "roles_permissions",
+            joinColumns = { @JoinColumn(name = "role_id") },
+            inverseJoinColumns = { @JoinColumn(name = "permission_id") }
+    )
+    private Set<Permission> permissions = new HashSet<>();
 
     public int getId() {
         return id;

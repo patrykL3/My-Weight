@@ -5,7 +5,6 @@ spring:
     banner-mode: off
 
   .jpa:
-    #    generate-ddl: true
     hibernate.ddl-auto: validate
     database-platform: org.hibernate.dialect.H2Dialect
 

@@ -21,10 +21,10 @@ public class PersonalData {
     @NotBlank
     private String sex;
     @NotBlank
-    private int desiredWeight;
-    @OneToOne
+    private float desiredWeight;
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private int userId;
+    private User user;
 
 
     public int getId() {
@@ -55,11 +55,19 @@ public class PersonalData {
         this.sex = sex;
     }
 
-    public int getDesiredWeight() {
+    public float getDesiredWeight() {
         return desiredWeight;
     }
 
-    public void setDesiredWeight(int desiredWeight) {
+    public void setDesiredWeight(float desiredWeight) {
         this.desiredWeight = desiredWeight;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

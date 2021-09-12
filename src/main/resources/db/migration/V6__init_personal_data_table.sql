@@ -5,5 +5,6 @@ create table personal_data(
     height int not null,
     sex varchar(100) not null,
     desired_weight float not null,
+    user_id int not null,
     foreign key (user_id) references users (id)
 )
