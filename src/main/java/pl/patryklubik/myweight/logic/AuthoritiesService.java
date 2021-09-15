@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.patryklubik.myweight.model.Permission;
 import pl.patryklubik.myweight.model.PermissionRepository;
 import pl.patryklubik.myweight.model.Role;
+import pl.patryklubik.myweight.model.RoleRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,12 +17,14 @@ import java.util.stream.Collectors;
 @Service
 public class AuthoritiesService {
 
+    private final PermissionRepository permissionRepository;
+    private final RoleRepository roleRepository;
 
-    PermissionRepository permissionRepository;
-
-    public AuthoritiesService(PermissionRepository permissionRepository) {
+    public AuthoritiesService(PermissionRepository permissionRepository, RoleRepository roleRepository) {
         this.permissionRepository = permissionRepository;
+        this.roleRepository = roleRepository;
     }
+
 
     public Set<SimpleGrantedAuthority> getAuthorities(Role role) {
 
@@ -30,8 +33,13 @@ public class AuthoritiesService {
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = permissionsFromDb.stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
                 .collect(Collectors.toSet());
+        simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
 
-//        simpleGrantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return simpleGrantedAuthorities;
+    }
+
+    public Role findRoleByUserId(int userId) {
+
+        return roleRepository.findById(userId).get();
     }
 }

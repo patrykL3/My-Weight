@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.model.MyUserDetails;
-import pl.patryklubik.myweight.model.RoleRepository;
 import pl.patryklubik.myweight.model.User;
 import pl.patryklubik.myweight.model.UserRepository;
 
@@ -24,14 +23,12 @@ public class MyUserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthoritiesService authoritiesService;
-    private final RoleRepository roleRepository;
     private final static int STANDARD_USER_ID = 1;
 
-    public MyUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthoritiesService authoritiesService, RoleRepository roleRepository) {
+    public MyUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthoritiesService authoritiesService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authoritiesService = authoritiesService;
-        this.roleRepository = roleRepository;
     }
 
 
@@ -52,8 +49,7 @@ public class MyUserService implements UserDetailsService {
 
         toCreate.setPassword(passwordEncoder.encode(toCreate.getPassword()));
         toCreate.setActive(true);
-//        toCreate.setRole(STANDARD_USER.name());
-        toCreate.setRole(roleRepository.findById(STANDARD_USER_ID).get());
+        toCreate.setRole(authoritiesService.findRoleByUserId(STANDARD_USER_ID));
 
         return userRepository.save(toCreate);
     }
