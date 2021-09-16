@@ -2,8 +2,10 @@ package pl.patryklubik.myweight.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.patryklubik.myweight.model.User;
 
 
 /**
@@ -19,11 +21,11 @@ public class TemplateController {
         return "redirect:/menu";
     }
 
-//    @GetMapping("registration")
-//    public String registration(Model model) {
-//        model.addAttribute("user", new User());
-//        return "registration";
-//    }
+    @GetMapping("registration")
+    public String registration(Model model) {
+        model.addAttribute("user", new User());
+        return "registration";
+    }
 
     @GetMapping("login")
     public String getLogin() {
