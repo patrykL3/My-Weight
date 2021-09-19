@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +14,7 @@
 <body>
 <h1>MainMenu</h1>
 <div class="container">
-    <p>MENU Spring Boot Security</p>
+    <p th:text="|${personalData.sex}|"> </p>
     <form class="form-signin" method="get" action="/logout">
         <button class="btn btn-primary btn-block" type="submit">Logout</button>
     </form>

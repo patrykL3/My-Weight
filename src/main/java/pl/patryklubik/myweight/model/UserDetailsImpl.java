@@ -12,14 +12,14 @@ import java.util.Set;
  * Create by Patryk Łubik on 03.09.2021.
  */
 
-public class MyUserDetails implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private String username;
     private String password;
     private boolean active;
     private Set<SimpleGrantedAuthority> authorities;
 
-    public MyUserDetails(User user, Set<SimpleGrantedAuthority> authorities) {
+    public UserDetailsImpl(User user, Set<SimpleGrantedAuthority> authorities) {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.active = user.isActive();

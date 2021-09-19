@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
-import pl.patryklubik.myweight.logic.MyUserService;
+import pl.patryklubik.myweight.logic.UserService;
 import pl.patryklubik.myweight.model.User;
 
 import javax.validation.Valid;
@@ -20,10 +20,10 @@ import javax.validation.Valid;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    private final MyUserService myUserService;
+    private final UserService userService;
 
-    public RegistrationController(MyUserService myUserService) {
-        this.myUserService = myUserService;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
     }
 
 
@@ -38,7 +38,7 @@ public class RegistrationController {
         }
 
         try {
-            myUserService.save(toCreate);
+            userService.save(toCreate);
             return "login";
         } catch (ResponseStatusException e) {
             model.addAttribute("message", e.getReason());

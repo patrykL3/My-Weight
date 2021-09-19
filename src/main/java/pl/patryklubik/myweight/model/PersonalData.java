@@ -22,7 +22,7 @@ public class PersonalData {
     private String sex;
     @NotBlank
     private float desiredWeight;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -70,4 +70,9 @@ public class PersonalData {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getUserUsername() {
+        return user.getUsername();
+    }
+
 }

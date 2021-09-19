@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import pl.patryklubik.myweight.model.MyUserDetails;
+import pl.patryklubik.myweight.model.UserDetailsImpl;
 import pl.patryklubik.myweight.model.User;
 import pl.patryklubik.myweight.model.UserRepository;
 
@@ -18,14 +18,14 @@ import java.util.Optional;
  */
 
 @Service
-public class MyUserService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthoritiesService authoritiesService;
     private final static int STANDARD_USER_ID = 1;
 
-    public MyUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthoritiesService authoritiesService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthoritiesService authoritiesService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authoritiesService = authoritiesService;
@@ -38,7 +38,7 @@ public class MyUserService implements UserDetailsService {
 
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
 
-        return new MyUserDetails(user.get(), authoritiesService.getAuthorities(user.get().getRole()));
+        return new UserDetailsImpl(user.get(), authoritiesService.getAuthorities(user.get().getRole()));
     }
 
     public User save(User toCreate) {
