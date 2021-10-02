@@ -1,12 +1,9 @@
 package pl.patryklubik.myweight.logic;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.patryklubik.myweight.model.PersonalData;
 import pl.patryklubik.myweight.model.PersonalDataRepository;
 import pl.patryklubik.myweight.model.User;
-import pl.patryklubik.myweight.model.UserRepository;
 
 
 /**
@@ -17,30 +14,17 @@ import pl.patryklubik.myweight.model.UserRepository;
 public class PersonalDataService {
 
     private final PersonalDataRepository personalDataRepository;
-    private final UserRepository userRepository;
+    private final SecurityUserService securityUserService;
 
-    public PersonalDataService(PersonalDataRepository personalDataRepository, UserRepository userRepository) {
+    public PersonalDataService(PersonalDataRepository personalDataRepository, SecurityUserService securityUserService) {
         this.personalDataRepository = personalDataRepository;
-        this.userRepository = userRepository;
+        this.securityUserService = securityUserService;
     }
 
 
     public PersonalData getPersonalDataLoggedInUser() {
-        User loggedInUser = userRepository.getByUsername(getLoggedInUsername());
+        User loggedInUser = securityUserService.getLoggedInUser();
 
         return personalDataRepository.findByUser(loggedInUser);
-    }
-
-    private String getLoggedInUsername() {
-        String username;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        return username;
     }
 }

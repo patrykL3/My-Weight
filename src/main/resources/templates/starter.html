@@ -15,6 +15,13 @@
 <h1>MainMenu</h1>
 <div class="container">
     <p th:text="|${personalData.sex}|"> </p>
+    <p th:text="|${personalData.age}|"> </p>
+    <p th:text="|${personalData.height}|"> </p>
+    <p th:text="|${personalData.desiredWeight}|"> </p>
+    <p th:text="|${basicWeightData.currentWeight}|"> </p>
+    <p th:text="|${basicWeightData.minWeight}|"> </p>
+    <p th:text="|${basicWeightData.maxWeight}|"> </p>
+    <p th:text="|${basicWeightData.bmi}|"> </p>
     <form class="form-signin" method="get" action="/logout">
         <button class="btn btn-primary btn-block" type="submit">Logout</button>
     </form>

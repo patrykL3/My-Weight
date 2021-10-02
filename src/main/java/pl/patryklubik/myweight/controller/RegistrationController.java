@@ -3,11 +3,12 @@ package pl.patryklubik.myweight.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
-import pl.patryklubik.myweight.logic.UserService;
+import pl.patryklubik.myweight.logic.SecurityUserService;
 import pl.patryklubik.myweight.model.User;
 
 import javax.validation.Valid;
@@ -20,10 +21,10 @@ import javax.validation.Valid;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    private final UserService userService;
+    private final SecurityUserService securityUserService;
 
-    public RegistrationController(UserService userService) {
-        this.userService = userService;
+    public RegistrationController(SecurityUserService securityUserService) {
+        this.securityUserService = securityUserService;
     }
 
 
@@ -38,11 +39,17 @@ public class RegistrationController {
         }
 
         try {
-            userService.save(toCreate);
+            securityUserService.save(toCreate);
             return "login";
         } catch (ResponseStatusException e) {
             model.addAttribute("message", e.getReason());
             return "registration";
         }
+    }
+
+    @GetMapping
+    public String getRegistrationPage(Model model) {
+        model.addAttribute("user", new User());
+        return "registration";
     }
 }

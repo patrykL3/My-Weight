@@ -1,6 +1,7 @@
 package pl.patryklubik.myweight.logic;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,21 +19,20 @@ import java.util.Optional;
  */
 
 @Service
-public class UserService implements UserDetailsService {
+public class SecurityUserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthoritiesService authoritiesService;
     private final static int STANDARD_USER_ID = 1;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthoritiesService authoritiesService) {
+    public SecurityUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthoritiesService authoritiesService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authoritiesService = authoritiesService;
     }
 
 
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
 
@@ -52,5 +52,22 @@ public class UserService implements UserDetailsService {
         toCreate.setRole(authoritiesService.findRoleByUserId(STANDARD_USER_ID));
 
         return userRepository.save(toCreate);
+    }
+
+    public User getLoggedInUser() {
+        return userRepository.getByUsername(getLoggedInUsername());
+    }
+
+    private String getLoggedInUsername() {
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        return username;
     }
 }

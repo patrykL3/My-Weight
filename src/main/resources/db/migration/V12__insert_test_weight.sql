@@ -1,0 +1,4 @@
+
+INSERT INTO weights VALUES (1, 17.4, '2012-09-17 18:47:52.69', 1);
+INSERT INTO weights VALUES (2, 12.5, '2020-09-17 18:47:52.69', 1);
+
