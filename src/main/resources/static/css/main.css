@@ -2,4 +2,36 @@ body
 {
         background-color: #3e3e3e;
         color: white;
+        padding-top: 0;
 }
+
+
+.h1 {
+        color: white;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+
+.gradient {
+        background: #438524;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #94c558, #438524);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #94c558, #438524); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+    .green:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgb(51, 167, 40);
+    }
+
+.image-size-icon{
+        max-height: 4rem;
+}
+

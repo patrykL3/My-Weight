@@ -3,41 +3,65 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Aplikacja do kontrolowania wagi.">
+    <meta name="keywords" content="Waga">
+    <meta name="author" content="Patryk Łubik">
     <title>Login- MyWeight</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="shortcut icon" href="/images/icon.png">
     <link href="/css/main.css" rel="stylesheet">
+
 </head>
 <body>
-<div class="container">
-    <form class="form-signin" method="post" action="/login">
-        <h2 class="form-signin-heading">Please login to MySite</h2>
-        <p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required=""
-                   autofocus="">
-        </p>
-        <p class="mb-0 pb-0 ">
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
-                   required="">
-        </p>
+<header>
+    <div class="gradient text-center p-3">
+        <a href="http://localhost:8080">
+            <img class="mb-3 image-size-icon d-inline-block" src="/images/icon.png">
+            <h1 class="h1 p-3 font-weight-bold d-inline-block">MyWeight</h1>
+        </a>
+    </div>
+</header>
 
-        <label class="form-check-label pb-2" for="remember-me">
-            <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me"> Remember me
-        </label>
+<main>
+    <div class="container">
+        <form class="form-signin mt-5" method="post" action="http://localhost:8080/login">
+            <p>
+                <input type="text" id="username" name="username" class="form-control green" placeholder="Nazwa użytkownika" required="" autofocus="">
+            </p>
+            <p class="mb-0 pb-0 ">
+                <input type="password" id="password" name="password" class="form-control green" placeholder="Hasło" required="">
+            </p>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-    </form>
+            <label class="form-check-label pb-2" for="remember-me">
+                <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me"> Zapamiętaj mnie
+            </label>
 
-    <form class="form-signin" method="get" action="/registration">
-        <p class="text-center">or</p>
-        <button class="btn btn-lg btn-info btn-block" type="submit">Create account</button>
-    </form>
+            <button class="btn btn-lg btn-success btn-block" type="submit">
+                Zaloguj się
+                <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right align-middle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 0 1 0-.708L10.793 8 8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"></path>
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 1 8z"></path>
+                    <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0 0 15 13V3a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 4 3v1.5a.5.5 0 0 0 1 0V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 5 13v-1.5a.5.5 0 0 0-1 0V13a1.5 1.5 0 0 0 1.5 1.5h8z"></path>
+                </svg>
+            </button>
+        </form>
 
-</div>
+        <form class="form-signin" method="get" action="http://localhost:8080/registration">
+            <p class="text-center">Nie masz konta?</p>
+            <button class="btn btn-lg btn-info btn-block" type="submit">
+                Załóż konto
+                <svg width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-plus-square align-middle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"></path>
+                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"></path>
+                    <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
+                </svg>
+            </button>
+        </form>
+
+    </div>
+</main>
+
 </body>
 </html>
