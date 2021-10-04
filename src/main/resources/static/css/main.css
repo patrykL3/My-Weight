@@ -31,6 +31,16 @@ body
         box-shadow: 0 0 0 0.2rem rgb(51, 167, 40);
     }
 
+        .info:focus {
+            border-color: #2894a7;
+            box-shadow: 0 0 0 0.2rem rgb(40, 167, 167);
+        }
+
+       .info-border {
+           border-radius: 5%;
+           box-shadow: 0 0 0 0.2rem rgb(40, 167, 167);
+       }
+
 .image-size-icon{
         max-height: 4rem;
 }
