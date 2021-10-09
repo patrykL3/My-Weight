@@ -50,3 +50,16 @@ body
         max-height: 4rem;
 }
 
+.mark {
+    background-color: #28a745;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+.disabled:hover {
+    color: rgba(255,255,255,.25) !important;
+}
+

@@ -13,19 +13,19 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>my-weight</name>
 	<description>Application which help you control weight</description>
+
 	<properties>
 		<java.version>11</java.version>
+		<bootstrap.version>4.5.3</bootstrap.version>
+		<webjars-locator.version>0.30</webjars-locator.version>
 	</properties>
+
 	<dependencies>
 
 		<!--basic-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -56,6 +56,23 @@
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+
+
+		<!--front-end-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${bootstrap.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>${webjars-locator.version}</version>
 		</dependency>
 
 
