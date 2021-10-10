@@ -1,6 +1,6 @@
 body
 {
-        background-color: #3e3e3e;
+        background-color: rgb(61, 67, 73);
         color: white;
         padding-top: 0;
 }
@@ -32,7 +32,7 @@ body
     }
 
     .green-border {
-        border-radius: 5%;
+        border-radius: 0.3rem;
         box-shadow: 0 0 0 0.2rem rgb(51, 167, 40);
     }
 
@@ -42,13 +42,47 @@ body
         }
 
        .info-border {
-           border-radius: 5%;
+        border-radius: 0.3rem;
            box-shadow: 0 0 0 0.2rem rgb(40, 167, 167);
        }
+
+.text-color-gray {
+    color: rgb(177, 183, 188);
+}
 
 .image-size-icon{
         max-height: 4rem;
 }
+
+.opacity-30 {
+    opacity: 30%;
+}
+
+.height-4 {
+    height: 4rem;
+}
+
+.rounded-1 {
+    border-radius: 1rem;
+}
+
+.rounded-2 {
+    border-radius: 2rem;
+}
+
+
+.font-size-1-5 {
+    font-size: 1.5rem;
+}
+
+.font-size-1-7 {
+    font-size: 1.7rem;
+}
+
+.font-size-0-8 {
+    font-size: 0.8rem;
+}
+
 
 .mark {
     background-color: #28a745;
