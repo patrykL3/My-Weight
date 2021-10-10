@@ -45,12 +45,11 @@
             <div class="col-md-2 rounded-1 text-center green-border ml-2 mr-2 mt-2">
                 <p class="pt-1 mb-0">Aktualna waga:</p>
                 <p class="mb-0 font-size-1-7" th:text="|${basicWeightData.currentWeight}| + ' kg'"></p>
-                <p class="pt-1 mb-1  font-size-0-8">10.10.2021</p>
+                <p class="pt-1 mb-1  font-size-0-8" th:text="|${basicWeightData.currentWeightDate}|"></p>
             </div>
             <div class="col-md-2 rounded-1 text-center green-border ml-2 mr-2 mt-2">
                 <p class="pt-1 mb-0">Cel:</p>
                 <p class="mb-0 font-size-1-7" th:text="|${personalData.desiredWeight}| + ' kg'"></p>
-                <p class="pt-1 mb-1 font-size-0-8">10.10.2021</p>
             </div>
         </div>
 
@@ -58,12 +57,12 @@
             <div class="col-md-2 rounded-1  green-border ml-2 mr-2 mt-2">
                 <p class="pt-1 mb-0">Waga minimalna:</p>
                 <p class="mb-0 font-size-1-7" th:text="|${basicWeightData.minWeight}| + ' kg'"></p>
-                <p class="pt-1 mb-1 font-size-0-8">01.10.2021</p>
+                <p class="pt-1 mb-1 font-size-0-8" th:text="|${basicWeightData.minWeightDate}|"></p>
             </div>
             <div class="col-md-2 rounded-1 green-border ml-2 mr-2 mt-2">
                 <p class="pt-1 mb-0">Waga maksymalna:</p>
                 <p class="mb-0 font-size-1-7" th:text="|${basicWeightData.maxWeight}| + ' kg'"></p>
-                <p class="pt-1 mb-1 font-size-0-8">10.10.2021</p>
+                <p class="pt-1 mb-1 font-size-0-8" th:text="|${basicWeightData.maxWeightDate}|"></p>
             </div>
         </div>
     </div>

@@ -3,6 +3,8 @@ package pl.patryklubik.myweight.logic;
 import org.springframework.stereotype.Service;
 import pl.patryklubik.myweight.model.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -27,18 +29,22 @@ public class WeightService {
 
     public BasicWeightDataDto getBasicWeightDataLoggedInUser() {
         int loggedInUserId = securityUserService.getLoggedInUser().getId();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         float currentWeight = getCurrentWeightUser(loggedInUserId);
         float minWeight = getMinWeightUser(loggedInUserId);
         float maxWeight = getMaxWeightUser(loggedInUserId);
         float bmi = calculateBMILoggedInUser();
 
-        return new BasicWeightDataDto(currentWeight, minWeight, maxWeight, bmi);
+        String currentWeightDate = getCurrentWeightDateUser(loggedInUserId).format(formatters);
+        String minWeightDate = getMinWeightDateUser(loggedInUserId).format(formatters);
+        String maxWeightDate = getMaxWeightDateUser(loggedInUserId).format(formatters);
+
+        return new BasicWeightDataDto(currentWeight, currentWeightDate, minWeight, minWeightDate, maxWeight,
+                maxWeightDate, bmi);
     }
 
     public List<Weight> getWeightHistoryDataLoggedInUser() {
-
-        List<Weight> a = weightRepository.findByUser(securityUserService.getLoggedInUser());
-
 
         return weightRepository.findByUser(securityUserService.getLoggedInUser());
     }
@@ -49,7 +55,9 @@ public class WeightService {
         float currentWeight = getCurrentWeightUser(loggedInUser.getId());
         int height = personalDataLoggedInUser.getHeight();
 
-        return currentWeight*currentWeight/height;
+        float bmi = currentWeight*currentWeight/height;
+
+        return Math.round(bmi * 10) / 10f;
     }
 
     private float getCurrentWeightUser(int userId) {
@@ -65,5 +73,21 @@ public class WeightService {
     private float getMinWeightUser(int userId) {
 
         return weightRepository.getUserMinWeight(userId);
+    }
+
+
+    private LocalDateTime getCurrentWeightDateUser(int userId) {
+
+        return weightRepository.getUserCurrentWeightDate(userId);
+    }
+
+    private LocalDateTime getMaxWeightDateUser(int userId) {
+
+        return weightRepository.getUserMaxWeightDate(userId);
+    }
+
+    private LocalDateTime getMinWeightDateUser(int userId) {
+
+        return weightRepository.getUserMinWeightDate(userId);
     }
 }

@@ -1,5 +1,6 @@
 package pl.patryklubik.myweight.model;
 
+
 /**
  * Create by Patryk Łubik on 30.09.2021.
  */
@@ -10,11 +11,19 @@ public class BasicWeightDataDto {
     private float minWeight;
     private float maxWeight;
     private float bmi;
+    private String currentWeightDate;
+    private String minWeightDate;
+    private String maxWeightDate;
 
-    public BasicWeightDataDto(float currentWeight, float minWeight, float maxWeight, float bmi) {
+    public BasicWeightDataDto(float currentWeight, String currentWeightDate, float minWeight,
+                              String minWeightDate, float maxWeight, String maxWeightDate,
+                              float bmi) {
         this.currentWeight = currentWeight;
         this.minWeight = minWeight;
         this.maxWeight = maxWeight;
+        this.currentWeightDate = currentWeightDate;
+        this.minWeightDate = minWeightDate;
+        this.maxWeightDate = maxWeightDate;
         this.bmi = bmi;
     }
 
@@ -48,5 +57,29 @@ public class BasicWeightDataDto {
 
     public void setBmi(float bmi) {
         this.bmi = bmi;
+    }
+
+    public String getCurrentWeightDate() {
+        return currentWeightDate;
+    }
+
+    public void setCurrentWeightDate(String currentWeightDate) {
+        this.currentWeightDate = currentWeightDate;
+    }
+
+    public String getMinWeightDate() {
+        return minWeightDate;
+    }
+
+    public void setMinWeightDate(String minWeightDate) {
+        this.minWeightDate = minWeightDate;
+    }
+
+    public String getMaxWeightDate() {
+        return maxWeightDate;
+    }
+
+    public void setMaxWeightDate(String maxWeightDate) {
+        this.maxWeightDate = maxWeightDate;
     }
 }
