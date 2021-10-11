@@ -35,6 +35,11 @@ public class LoggedInUserController {
         return "starter";
     }
 
+    @GetMapping("add-weight")
+    public String getAddWeightPage() {
+        return "add-weight";
+    }
+
     @GetMapping("personal-data")
     @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
     public String getPersonalDataPage() {
