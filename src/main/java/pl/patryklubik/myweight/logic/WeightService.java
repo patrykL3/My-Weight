@@ -54,9 +54,9 @@ public class WeightService {
         User loggedInUser = securityUserService.getLoggedInUser();
         PersonalData personalDataLoggedInUser = personalDataRepository.findByUser(loggedInUser);
         float currentWeight = getCurrentWeightUser(loggedInUser.getId());
-        int height = personalDataLoggedInUser.getHeight();
+        float height = personalDataLoggedInUser.getHeight();
 
-        float bmi = currentWeight*currentWeight/height;
+        float bmi = currentWeight/(height*height/10000);
 
         return Math.round(bmi * 10) / 10f;
     }
