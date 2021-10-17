@@ -2,15 +2,15 @@ package pl.patryklubik.myweight.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.logic.PersonalDataService;
 import pl.patryklubik.myweight.logic.WeightService;
-import pl.patryklubik.myweight.model.BasicWeightDataDto;
-import pl.patryklubik.myweight.model.PersonalData;
-import pl.patryklubik.myweight.model.Weight;
+import pl.patryklubik.myweight.model.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -52,6 +52,29 @@ public class LoggedInUserController {
         return "weight-history";
     }
 
+    @PostMapping("add-weight")
+    public String addWeight(@ModelAttribute("weight") @Valid Weight newWeight,
+                                BindingResult bindingResult,
+                                Model model) {
+
+        String pageToReturn = "add-weight";
+        String errorModelAttributeName = "message_error";
+        String successModelAttributeName = "message_success";
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(errorModelAttributeName, "Wypełnij wszystkie pola");
+            return pageToReturn;
+        }
+
+        try {
+            weightService.save(newWeight);
+            model.addAttribute(successModelAttributeName, "Pomiar dodany");
+            return pageToReturn;
+        } catch (ResponseStatusException e) {
+            model.addAttribute(errorModelAttributeName, e.getReason());
+            return pageToReturn;
+        }
+    }
 
     @ModelAttribute("personalData")
     PersonalData getPersonalDataLoggedInUser() {

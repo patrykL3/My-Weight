@@ -1,6 +1,6 @@
 package pl.patryklubik.myweight.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -14,9 +14,11 @@ public interface WeightRepository {
 
     List<Weight> findByUser(User user);
 
-    LocalDateTime getUserCurrentWeightDate(Integer userId);
+    Date getUserCurrentWeightDate(Integer userId);
 
-    LocalDateTime getUserMaxWeightDate(Integer userId);
+    Date getUserMaxWeightDate(Integer userId);
 
-    LocalDateTime getUserMinWeightDate(Integer userId);
+    Date getUserMinWeightDate(Integer userId);
+
+    Weight save(Weight entity);
 }

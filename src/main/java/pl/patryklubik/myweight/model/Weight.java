@@ -1,10 +1,10 @@
 package pl.patryklubik.myweight.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 
 /**
@@ -18,10 +18,11 @@ public class Weight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
-    private float weight;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime date;
+    @NotNull
+    private float value;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -30,19 +31,19 @@ public class Weight {
         return id;
     }
 
-    public float getWeight() {
-        return weight;
+    public float getValue() {
+        return value;
     }
 
-    public void setWeight(float weight) {
-        this.weight = weight;
+    public void setValue(float value) {
+        this.value = value;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

@@ -3,8 +3,8 @@ package pl.patryklubik.myweight.logic;
 import org.springframework.stereotype.Service;
 import pl.patryklubik.myweight.model.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,6 +18,7 @@ public class WeightService {
     private final WeightRepository weightRepository;
     private final PersonalDataRepository personalDataRepository;
     private final SecurityUserService securityUserService;
+    private final static String DATE_PATTERN = "dd-MM-yyyy";
 
 
     public WeightService(WeightRepository weightRepository, PersonalDataRepository personalDataRepository, SecurityUserService securityUserService) {
@@ -29,16 +30,16 @@ public class WeightService {
 
     public BasicWeightDataDto getBasicWeightDataLoggedInUser() {
         int loggedInUserId = securityUserService.getLoggedInUser().getId();
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        SimpleDateFormat formatters = new SimpleDateFormat(DATE_PATTERN);
 
         float currentWeight = getCurrentWeightUser(loggedInUserId);
         float minWeight = getMinWeightUser(loggedInUserId);
         float maxWeight = getMaxWeightUser(loggedInUserId);
         float bmi = calculateBMILoggedInUser();
 
-        String currentWeightDate = getCurrentWeightDateUser(loggedInUserId).format(formatters);
-        String minWeightDate = getMinWeightDateUser(loggedInUserId).format(formatters);
-        String maxWeightDate = getMaxWeightDateUser(loggedInUserId).format(formatters);
+        String currentWeightDate = formatters.format(getCurrentWeightDateUser(loggedInUserId));
+        String minWeightDate = formatters.format(getMinWeightDateUser(loggedInUserId));
+        String maxWeightDate = formatters.format(getMaxWeightDateUser(loggedInUserId));
 
         return new BasicWeightDataDto(currentWeight, currentWeightDate, minWeight, minWeightDate, maxWeight,
                 maxWeightDate, bmi);
@@ -76,18 +77,25 @@ public class WeightService {
     }
 
 
-    private LocalDateTime getCurrentWeightDateUser(int userId) {
+    private Date getCurrentWeightDateUser(int userId) {
 
         return weightRepository.getUserCurrentWeightDate(userId);
     }
 
-    private LocalDateTime getMaxWeightDateUser(int userId) {
+    private Date getMaxWeightDateUser(int userId) {
 
         return weightRepository.getUserMaxWeightDate(userId);
     }
 
-    private LocalDateTime getMinWeightDateUser(int userId) {
+    private Date getMinWeightDateUser(int userId) {
 
         return weightRepository.getUserMinWeightDate(userId);
+    }
+
+    public Weight save(Weight newWeight) {
+
+        newWeight.setUser(securityUserService.getLoggedInUser());
+
+        return weightRepository.save(newWeight);
     }
 }
