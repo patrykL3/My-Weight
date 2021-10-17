@@ -41,7 +41,7 @@
                         </svg>
                     </div>
                 </div>
-                <input type="date" id="date" name="date" th:value="${date}" class="form-control green">
+                <input type="date" id="date" name="date" th:value="${date}" class="form-control green" required="">
             </div>
 
             <button class="btn btn-lg btn-success btn-block mt-3" type="submit">
@@ -54,10 +54,20 @@
             </button>
         </form>
 
+        <div  th:if="${message_error != null}" class="row alert justify-content-center height-3 mt-4">
+            <div class="col-md-3 col-6 rounded-2 font-weight-bold text-center bg-danger pt-2 pb-2"><span
+                    th:text="${message_error}"></span></div>
+        </div>
+        <div  th:if="${message_success != null}" class="row alert justify-content-center height-3 mt-4">
+            <div class="col-md-3 col-6 rounded-2 font-weight-bold text-center bg-success pt-2 pb-2"><span
+                    th:text="${message_success}"></span></div>
+        </div>
+
     </div>
 </main>
 
     <th:block th:include="_common-components :: scripts" />
+    <script src="/js/alert-fade-out.js"></script>
 </body>
 </html>
 
