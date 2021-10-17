@@ -31,7 +31,20 @@ public class LoggedInUserController {
     }
 
     @GetMapping("starter")
-    public String getStarterPage() {
+    public String getStarterPage(Model model) {
+        boolean bmiLevelCorrect = weightService.isLoggedInUsersBMILevelCorrect();
+        String nameFieldsOfBmiLevel = "description_of_bmi_level";
+        String nameFieldsOfCorrectBmiLevel = "bmi_level_correct";
+        String descriptionOfCorrectBmiLevel = "Wartość BMI w prawidłowym zakresie (18,5 - 24,9)";
+        String descriptionOfIncorrectBmiLevel = "Wartość BMI nie jest w prawidłowym zakresie (18,5 - 24,9)";
+
+        model.addAttribute(nameFieldsOfCorrectBmiLevel, bmiLevelCorrect);
+        if(bmiLevelCorrect) {
+            model.addAttribute(nameFieldsOfBmiLevel, descriptionOfCorrectBmiLevel);
+        } else {
+            model.addAttribute(nameFieldsOfBmiLevel, descriptionOfIncorrectBmiLevel);
+        }
+
         return "starter";
     }
 

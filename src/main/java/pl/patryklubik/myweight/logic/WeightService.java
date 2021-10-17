@@ -50,6 +50,13 @@ public class WeightService {
         return weightRepository.findByUser(securityUserService.getLoggedInUser());
     }
 
+    public boolean isLoggedInUsersBMILevelCorrect() {
+        if (calculateBMILoggedInUser() > 18.5 && calculateBMILoggedInUser() < 24.9) {
+            return true;
+        }
+        return false;
+    }
+
     private float calculateBMILoggedInUser() {
         User loggedInUser = securityUserService.getLoggedInUser();
         PersonalData personalDataLoggedInUser = personalDataRepository.findByUser(loggedInUser);
