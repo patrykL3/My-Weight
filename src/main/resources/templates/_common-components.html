@@ -63,13 +63,13 @@
                 <li class="nav-item" th:classappend="${#httpServletRequest.requestURI}==@{~/personal-data} ? 'active' : ''">
                     <a class="nav-link"
                        th:classappend="${#httpServletRequest.requestURI}==@{~/personal-data} ? 'mark' : ''"
-                       th:href="@{~/starter}">
+                       th:href="@{~/personal-data}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill align-middle" viewBox="0 0 16 16">
                             <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
                         </svg>
                         Moje dane</a>
                 </li>
-                <form class="form-inline my-2 my-lg-0" method="get" action="/logout">
+                <form class="form-inline my-2 my-lg-0 ml-1" method="get" action="/logout">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-right align-middle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"></path>
