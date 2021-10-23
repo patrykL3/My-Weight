@@ -20,11 +20,10 @@
 
         <div class="row justify-content-center mt-5">
             <div class="pl-1 pr-0 col-md-1 col-sm-2 align-self-center text-center">
-                <img class="mb-3 image-size-icon d-inline-block" src="/images/man-icon.png">
+                <img class="mb-3 image-size-icon d-inline-block" th:classappend="${personalData.sex} == 'female' ? 'opacity-30' : ''" src="/images/man-icon.png">
             </div>
             <div class="align-self-center">
-                <img class="mb-3 image-size-icon d-inline-block"
-                     th:classappend="${personalData.sex} == 'female' ? 'opacity-30' : ''" src="/images/separator.png">
+                <img class="mb-3 image-size-icon d-inline-block" src="/images/separator.png">
             </div>
             <div class="pl-0 pr-1 col-md-1 col-sm-2 align-self-center text-center">
                 <img class="mb-3 image-size-icon d-inline-block"

@@ -1,7 +1,7 @@
 package pl.patryklubik.myweight.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -14,13 +14,13 @@ public class PersonalData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
+    @NotNull
     private int age;
-    @NotBlank
+    @NotNull
     private int height;
-    @NotBlank
+    @NotNull
     private String sex;
-    @NotBlank
+    @NotNull
     private float desiredWeight;
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -75,4 +75,11 @@ public class PersonalData {
         return user.getUsername();
     }
 
+    public void update(final PersonalData source) {
+
+        age = source.age;
+        height = source.height;
+        sex = source.sex;
+        desiredWeight = source.desiredWeight;
+    }
 }

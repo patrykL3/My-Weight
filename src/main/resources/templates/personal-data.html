@@ -17,7 +17,8 @@
 <main>
     <div class="container">
 
-        <form class="form-signin green-border mt-5 rounded-2 " method="post" action="#" th:action="@{/save-data}">
+        <form class="form-signin green-border mt-5 rounded-2 " method="post" action="#"
+              th:action="@{/save-personal-data}" th:object="${personalData}">
             <h2 class="form-signin-heading text-center font-weight-bold  mb-3">Moje dane</h2>
 
             <div class="form-group input-group pb-0">
@@ -29,7 +30,8 @@
                         </svg>
                     </div>
                 </div>
-                <input type="text" th:value="${age}" id="age" name="age"  class="form-control green" required=""
+                <input type="text" th:field="*{age}" class="form-control green"
+                       required=""
                        placeholder="Wiek"
                        value="">
             </div>
@@ -41,7 +43,8 @@
                         </svg>
                     </div>
                 </div>
-                <input type="text" th:value="${height}" id="height" name="height"  class="form-control green" required=""
+                <input type="text" th:field="*{height}" class="form-control green"
+                       required=""
                        placeholder="Wzrost (cm)"
                        value="">
             </div>
@@ -53,11 +56,12 @@
                         </svg>
                     </div>
                 </div>
-                <select th:value="${sex}" id="sex" name="sex"  class="form-control green decorated" required="">
-                    <option hidden="">Płeć</option>
-                    <option class="green">Mężczyzna</option>
-                    <option>Kobieta</option>
-                </select>
+                                <select th:field="*{sex}" class="form-control green decorated"
+                                        required="">
+                                    <option value="" hidden="">Płeć</option>
+                                    <option value="male">Mężczyzna</option>
+                                    <option value="female">Kobieta</option>
+                                </select>
             </div>
 
             <div class="form-group input-group pb-0">
@@ -69,7 +73,8 @@
                         </svg>
                     </div>
                 </div>
-                <input type="text" th:value="${desiredWeight}" id="desiredWeight" name="desiredWeight"  class="form-control green"
+                <input type="text" th:field="*{desiredWeight}" id="desiredWeight" name="desiredWeight"
+                       class="form-control green"
                        required="" placeholder="Cel (kg)" value="">
             </div>
 

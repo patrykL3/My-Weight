@@ -33,6 +33,7 @@ public class LoggedInUserController {
     @GetMapping("starter")
     public String getStarterPage(Model model) {
         boolean bmiLevelCorrect = weightService.isLoggedInUsersBMILevelCorrect();
+        model.addAttribute("personalData", personalDataService.getPersonalDataLoggedInUser());
         String nameFieldsOfBmiLevel = "description_of_bmi_level";
         String nameFieldsOfCorrectBmiLevel = "bmi_level_correct";
         String descriptionOfCorrectBmiLevel = "Wartość BMI w prawidłowym zakresie (18,5 - 24,9)";
@@ -55,7 +56,9 @@ public class LoggedInUserController {
 
     @GetMapping("personal-data")
     @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
-    public String getPersonalDataPage() {
+    public String getPersonalDataPage(Model model) {
+        model.addAttribute("personalData", personalDataService.getPersonalDataLoggedInUser());
+
         return "personal-data";
     }
 
@@ -89,10 +92,35 @@ public class LoggedInUserController {
         }
     }
 
-    @ModelAttribute("personalData")
-    PersonalData getPersonalDataLoggedInUser() {
-        return personalDataService.getPersonalDataLoggedInUser();
+    @PostMapping("save-personal-data")
+    public String savePersonalData(@ModelAttribute("personalData")
+                                   @Valid PersonalData personalData,
+                            BindingResult bindingResult,
+                            Model model) {
+
+        String pageToReturn = "personal-data";
+        String errorModelAttributeName = "message_error";
+        String successModelAttributeName = "message_success";
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(errorModelAttributeName, "Wypełnij wszystkie pola");
+            return pageToReturn;
+        }
+
+        try {
+            personalDataService.save(personalData);
+            model.addAttribute(successModelAttributeName, "Pomiar dodany");
+            return pageToReturn;
+        } catch (ResponseStatusException e) {
+            model.addAttribute(errorModelAttributeName, e.getReason());
+            return pageToReturn;
+        }
     }
+
+//    @ModelAttribute("personalData")
+//    PersonalData getPersonalDataLoggedInUser() {
+//        return personalDataService.getPersonalDataLoggedInUser();
+//    }
 
     @ModelAttribute("basicWeightData")
     BasicWeightDataDto getWeightDataLoggedInUser() {
