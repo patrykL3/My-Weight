@@ -2,6 +2,7 @@ package pl.patryklubik.myweight.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface WeightRepository {
@@ -21,4 +22,10 @@ public interface WeightRepository {
     Date getUserMinWeightDate(Integer userId);
 
     Weight save(Weight entity);
+
+    Optional< Weight> findById(Integer id);
+
+    boolean existsById(Integer id);
+
+    void deleteById(Integer id);
 }

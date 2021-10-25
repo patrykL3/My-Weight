@@ -9,6 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.logic.PersonalDataService;
 import pl.patryklubik.myweight.logic.WeightService;
 import pl.patryklubik.myweight.model.*;
+import pl.patryklubik.myweight.model.dto.BasicWeightDataDto;
+import pl.patryklubik.myweight.model.dto.WeightDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,6 +56,29 @@ public class LoggedInUserController {
         return "add-weight";
     }
 
+
+    @PostMapping("edit-weight")
+    public String editWeight(@ModelAttribute("editedWeight") @Valid Weight editedWeight,
+                            Model model) {
+        try {
+            weightService.update(editedWeight);
+        } catch (ResponseStatusException e) {
+            System.out.println(e.getReason());
+        }
+        return "redirect:/weight-history";
+    }
+
+    @PostMapping("delete-weight")
+    public String deleteWeight(int deleteId) {
+        try {
+            weightService.delete(deleteId);
+        } catch (ResponseStatusException e) {
+            System.out.println(e.getReason());
+        }
+        return "redirect:/weight-history";
+    }
+
+
     @GetMapping("personal-data")
     @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
     public String getPersonalDataPage(Model model) {
@@ -64,7 +89,10 @@ public class LoggedInUserController {
 
     @GetMapping("weight-history")
     @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
-    public String getWeightHistoryPage() {
+    public String getWeightHistoryPage(Model model) {
+
+
+                model.addAttribute("editedWeight", new Weight());
         return "weight-history";
     }
 
@@ -128,7 +156,7 @@ public class LoggedInUserController {
     }
 
     @ModelAttribute("weightHistoryData")
-    List<Weight> getWeightHistoryDataLoggedInUser() {
+    List<WeightDto> getWeightHistoryDataLoggedInUser() {
         return weightService.getWeightHistoryDataLoggedInUser();
     }
 }

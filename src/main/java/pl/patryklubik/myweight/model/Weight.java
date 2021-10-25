@@ -31,6 +31,10 @@ public class Weight {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public float getValue() {
         return value;
     }
@@ -53,5 +57,10 @@ public class Weight {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void update(final Weight source) {
+        value = source.value;
+        date = source.date;
     }
 }

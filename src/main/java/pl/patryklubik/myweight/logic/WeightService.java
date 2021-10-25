@@ -1,11 +1,16 @@
 package pl.patryklubik.myweight.logic;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.model.*;
+import pl.patryklubik.myweight.model.dto.BasicWeightDataDto;
+import pl.patryklubik.myweight.model.dto.WeightDto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -45,9 +50,12 @@ public class WeightService {
                 maxWeightDate, bmi);
     }
 
-    public List<Weight> getWeightHistoryDataLoggedInUser() {
+    public List<WeightDto> getWeightHistoryDataLoggedInUser() {
+        SimpleDateFormat formatters = new SimpleDateFormat(DATE_PATTERN);
 
-        return weightRepository.findByUser(securityUserService.getLoggedInUser());
+        return weightRepository.findByUser(securityUserService.getLoggedInUser())
+                .stream().map(weight -> new WeightDto(weight.getId(), weight.getValue(), formatters.format(weight.getDate())))
+                .collect(Collectors.toList());
     }
 
     public boolean isLoggedInUsersBMILevelCorrect() {
@@ -104,5 +112,31 @@ public class WeightService {
         newWeight.setUser(securityUserService.getLoggedInUser());
 
         return weightRepository.save(newWeight);
+    }
+
+    public Weight update(Weight editedWeight) {
+
+        int editWeightId = editedWeight.getId();
+        if(!weightRepository.existsById(editWeightId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
+
+        weightRepository.findById(editWeightId)
+                .ifPresent(weightFromDb -> {
+                    weightFromDb.update(editedWeight);
+                    weightRepository.save(weightFromDb);
+                });
+        return editedWeight;
+    }
+
+    public void delete(int id) {
+        if(!weightRepository.existsById(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }
+        weightRepository.deleteById(id);
     }
 }
