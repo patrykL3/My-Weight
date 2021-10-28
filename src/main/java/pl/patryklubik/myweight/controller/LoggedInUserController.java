@@ -56,6 +56,11 @@ public class LoggedInUserController {
         return "add-weight";
     }
 
+    @GetMapping("chart")
+    public String getChartPage() {
+        return "chart";
+    }
+
 
     @PostMapping("edit-weight")
     public String editWeight(@ModelAttribute("editedWeight") @Valid Weight editedWeight,
