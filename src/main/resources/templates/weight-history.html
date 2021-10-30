@@ -18,7 +18,9 @@
 
     <div class="container">
 
-        <div class="row justify-content-center font-weight-bold mt-4 pl-5">
+        <div th:include="_common-components :: no-data" />
+
+        <div th:if="${!weightHistoryData.empty}" class="row justify-content-center font-weight-bold mt-4 pl-5">
             <div class="col-md-2 col-4 text-center green-border font-size-1-3 mr-1">
                 <p class="pt-1 mb-1">Data</p>
             </div>

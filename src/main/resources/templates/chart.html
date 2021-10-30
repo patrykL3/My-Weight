@@ -15,7 +15,10 @@
     <div th:include="_common-components :: nav" />
 
     <div class="container">
-        <div class="row justify-content-center mt-4">
+
+        <div th:include="_common-components :: no-data" />
+
+        <div th:if="${!weightHistoryData.empty}" class="row justify-content-center mt-4">
             <div class="col-10">
                 <canvas id="canvas"></canvas>
             </div>
