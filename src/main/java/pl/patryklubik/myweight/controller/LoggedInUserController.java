@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.logic.PersonalDataService;
 import pl.patryklubik.myweight.logic.WeightService;
 import pl.patryklubik.myweight.model.*;
-import pl.patryklubik.myweight.model.dto.BasicWeightDataDto;
 import pl.patryklubik.myweight.model.dto.WeightDto;
 
 import javax.validation.Valid;
@@ -34,20 +33,25 @@ public class LoggedInUserController {
 
     @GetMapping("starter")
     public String getStarterPage(Model model) {
-        boolean bmiLevelCorrect = weightService.isLoggedInUsersBMILevelCorrect();
-        model.addAttribute("personalData", personalDataService.getPersonalDataLoggedInUser());
+
         String nameFieldsOfBmiLevel = "description_of_bmi_level";
         String nameFieldsOfCorrectBmiLevel = "bmi_level_correct";
         String descriptionOfCorrectBmiLevel = "Wartość BMI w prawidłowym zakresie (18,5 - 24,9)";
         String descriptionOfIncorrectBmiLevel = "Wartość BMI nie jest w prawidłowym zakresie (18,5 - 24,9)";
 
-        model.addAttribute(nameFieldsOfCorrectBmiLevel, bmiLevelCorrect);
-        if(bmiLevelCorrect) {
-            model.addAttribute(nameFieldsOfBmiLevel, descriptionOfCorrectBmiLevel);
-        } else {
-            model.addAttribute(nameFieldsOfBmiLevel, descriptionOfIncorrectBmiLevel);
-        }
+        if(personalDataService.isPersonalDataExists() && weightService.isWeightDataExists()) {
+            boolean bmiLevelCorrect = weightService.isLoggedInUsersBMILevelCorrect();
+            model.addAttribute("personalData", personalDataService.getPersonalDataLoggedInUser());
+            model.addAttribute("basicWeightData", weightService.getBasicWeightDataLoggedInUser());
 
+
+            model.addAttribute(nameFieldsOfCorrectBmiLevel, bmiLevelCorrect);
+            if(bmiLevelCorrect) {
+                model.addAttribute(nameFieldsOfBmiLevel, descriptionOfCorrectBmiLevel);
+            } else {
+                model.addAttribute(nameFieldsOfBmiLevel, descriptionOfIncorrectBmiLevel);
+            }
+        }
         return "starter";
     }
 
@@ -87,7 +91,11 @@ public class LoggedInUserController {
     @GetMapping("personal-data")
     @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
     public String getPersonalDataPage(Model model) {
-        model.addAttribute("personalData", personalDataService.getPersonalDataLoggedInUser());
+        PersonalData personalDataLoggedInUser = new PersonalData();
+        if (personalDataService.isPersonalDataExists()) {
+            personalDataLoggedInUser = personalDataService.getPersonalDataLoggedInUser();
+        }
+        model.addAttribute("personalData", personalDataLoggedInUser);
 
         return "personal-data";
     }
@@ -142,7 +150,7 @@ public class LoggedInUserController {
 
         try {
             personalDataService.save(personalData);
-            model.addAttribute(successModelAttributeName, "Pomiar dodany");
+            model.addAttribute(successModelAttributeName, "Zapisano dane");
             return pageToReturn;
         } catch (ResponseStatusException e) {
             model.addAttribute(errorModelAttributeName, e.getReason());
@@ -150,15 +158,6 @@ public class LoggedInUserController {
         }
     }
 
-//    @ModelAttribute("personalData")
-//    PersonalData getPersonalDataLoggedInUser() {
-//        return personalDataService.getPersonalDataLoggedInUser();
-//    }
-
-    @ModelAttribute("basicWeightData")
-    BasicWeightDataDto getWeightDataLoggedInUser() {
-        return weightService.getBasicWeightDataLoggedInUser();
-    }
 
     @ModelAttribute("weightHistoryData")
     List<WeightDto> getWeightHistoryDataLoggedInUser() {

@@ -59,10 +59,7 @@ public class WeightService {
     }
 
     public boolean isLoggedInUsersBMILevelCorrect() {
-        if (calculateBMILoggedInUser() > 18.5 && calculateBMILoggedInUser() < 24.9) {
-            return true;
-        }
-        return false;
+        return calculateBMILoggedInUser() > 18.5 && calculateBMILoggedInUser() < 24.9;
     }
 
     private float calculateBMILoggedInUser() {
@@ -138,5 +135,9 @@ public class WeightService {
             );
         }
         weightRepository.deleteById(id);
+    }
+
+    public boolean isWeightDataExists() {
+        return !weightRepository.findByUser(securityUserService.getLoggedInUser()).isEmpty();
     }
 }

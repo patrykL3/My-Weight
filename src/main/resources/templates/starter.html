@@ -16,8 +16,9 @@
     <div th:include="_common-components :: nav" />
 
 
-    <div class="container">
+    <div class="container" >
 
+        <div th:if="${personalData != null && basicWeightData != null}">
         <div class="row justify-content-center mt-5">
             <div class="pl-1 pr-0 col-md-1 col-sm-2 align-self-center text-center">
                 <img class="mb-3 image-size-icon d-inline-block" th:classappend="${personalData.sex} == 'female' ? 'opacity-30' : ''" src="/images/man-icon.png">
@@ -66,6 +67,7 @@
                 <p class="mb-0 font-size-1-7" th:text="|${basicWeightData.maxWeight}| + ' kg'"></p>
                 <p class="pt-1 mb-1 font-size-0-8" th:text="|${basicWeightData.maxWeightDate}|"></p>
             </div>
+        </div>
         </div>
     </div>
 

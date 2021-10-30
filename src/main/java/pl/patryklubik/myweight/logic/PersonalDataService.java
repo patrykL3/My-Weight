@@ -1,8 +1,6 @@
 package pl.patryklubik.myweight.logic;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.model.PersonalData;
 import pl.patryklubik.myweight.model.PersonalDataRepository;
 import pl.patryklubik.myweight.model.User;
@@ -32,19 +30,21 @@ public class PersonalDataService {
 
     public PersonalData save(PersonalData personalData) {
 
-        int loggedUserId = getPersonalDataLoggedInUser().getId();
-
-        if(!personalDataRepository.existsById(loggedUserId)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
-            );
+        if(isPersonalDataExists()) {
+            personalDataRepository.findById(getPersonalDataLoggedInUser().getId())
+                    .ifPresent(personalDataFromDb -> {
+                        personalDataFromDb.update(personalData);
+                        personalDataRepository.save(personalDataFromDb);
+                    });
+        } else {
+            personalData.setUser(securityUserService.getLoggedInUser());
+            personalDataRepository.save(personalData);
         }
 
-         personalDataRepository.findById(loggedUserId)
-                .ifPresent(personalDataFromDb -> {
-                    personalDataFromDb.update(personalData);
-                    personalDataRepository.save(personalDataFromDb);
-                });
         return personalData;
+    }
+
+    public boolean isPersonalDataExists() {
+        return getPersonalDataLoggedInUser() != null;
     }
 }
