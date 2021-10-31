@@ -8,11 +8,13 @@ public enum ThymeleafAttributes {
     BMI_LEVEL_CORRECT("bmiLevelCorrect"),
     PERSONAL_DATA("personalData"),
     BASIC_WEIGHT_DATA("basicWeightData"),
-    MESSAGE_ERROR("messageError"),
     WEIGHT("weight"),
     EDITED_WEIGHT("editedWeight"),
     MESSAGE_SUCCESS("messageSuccess"),
-    WEIGHT_HISTORY_DATA("weightHistoryData");
+    MESSAGE_ERROR("messageError"),
+    MESSAGE("message"),
+    WEIGHT_HISTORY_DATA("weightHistoryData"),
+    USER("user");
 
     private final String name;
 
@@ -25,4 +27,3 @@ public enum ThymeleafAttributes {
         return name;
     }
 }
-
