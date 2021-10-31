@@ -30,7 +30,7 @@
                         </svg>
                     </div>
                 </div>
-                <input type="text" th:field="*{age}" class="form-control green"
+                <input type="number" th:field="*{age}" class="form-control green"
                        required=""
                        placeholder="Wiek"
                        value="">
@@ -43,7 +43,7 @@
                         </svg>
                     </div>
                 </div>
-                <input type="text" th:field="*{height}" class="form-control green"
+                <input type="number" th:field="*{height}" class="form-control green"
                        required=""
                        placeholder="Wzrost (cm)"
                        value="">
@@ -73,7 +73,7 @@
                         </svg>
                     </div>
                 </div>
-                <input type="text" th:field="*{desiredWeight}" id="desiredWeight" name="desiredWeight"
+                <input type="number" step="0.1" th:field="*{desiredWeight}" id="desiredWeight" name="desiredWeight"
                        class="form-control green"
                        required="" placeholder="Cel (kg)" value="">
             </div>
