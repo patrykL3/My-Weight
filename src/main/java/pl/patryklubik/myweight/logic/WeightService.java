@@ -8,6 +8,7 @@ import pl.patryklubik.myweight.model.dto.BasicWeightDataDto;
 import pl.patryklubik.myweight.model.dto.WeightDto;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +55,8 @@ public class WeightService {
         SimpleDateFormat formatters = new SimpleDateFormat(DATE_PATTERN);
 
         return weightRepository.findByUser(securityUserService.getLoggedInUser())
-                .stream().map(weight -> new WeightDto(weight.getId(), weight.getValue(), formatters.format(weight.getDate())))
+                .stream().map(weight -> new WeightDto(weight.getId(), weight.getValue(), weight.getDate()))
+                .sorted(Comparator.comparing(WeightDto::getDate))
                 .collect(Collectors.toList());
     }
 

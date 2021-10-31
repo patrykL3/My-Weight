@@ -33,7 +33,7 @@
 
         <div th:each="weightData: ${weightHistoryData}" class="row justify-content-center mt-1 pl-5">
             <div class="col-md-2 col-4 text-center green-border mr-1">
-                <p class="pt-1 mb-0" th:attr="weight-date-id=${weightData.id}" th:text="${weightData.date}"></p>
+                <p class="pt-1 mb-0" th:attr="weight-date-id=${weightData.id}" th:text="${#dates.format(weightData.date, 'dd-MM-yyyy')}"></p>
             </div>
             <div class="col-md-2 col-4 text-center green-border">
                 <p class="pt-1 mb-1" th:attr="weight-value-id=${weightData.id}" th:text="${weightData.value}"></p>
