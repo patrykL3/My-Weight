@@ -43,9 +43,9 @@ public class WeightService {
         float maxWeight = getMaxWeightUser(loggedInUserId);
         float bmi = calculateBMILoggedInUser();
 
-        String currentWeightDate = formatters.format(getCurrentWeightDateUser(loggedInUserId));
-        String minWeightDate = formatters.format(getMinWeightDateUser(loggedInUserId));
-        String maxWeightDate = formatters.format(getMaxWeightDateUser(loggedInUserId));
+        Date currentWeightDate = getCurrentWeightDateUser(loggedInUserId);
+        Date minWeightDate = getMinWeightDateUser(loggedInUserId);
+        Date maxWeightDate = getMaxWeightDateUser(loggedInUserId);
 
         return new BasicWeightDataDto(currentWeight, currentWeightDate, minWeight, minWeightDate, maxWeight,
                 maxWeightDate, bmi);

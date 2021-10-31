@@ -1,6 +1,9 @@
 package pl.patryklubik.myweight.model.dto;
 
 
+import java.util.Date;
+
+
 /**
  * Create by Patryk Łubik on 30.09.2021.
  */
@@ -11,12 +14,12 @@ public class BasicWeightDataDto {
     private float minWeight;
     private float maxWeight;
     private float bmi;
-    private String currentWeightDate;
-    private String minWeightDate;
-    private String maxWeightDate;
+    private Date currentWeightDate;
+    private Date minWeightDate;
+    private Date maxWeightDate;
 
-    public BasicWeightDataDto(float currentWeight, String currentWeightDate, float minWeight,
-                              String minWeightDate, float maxWeight, String maxWeightDate,
+    public BasicWeightDataDto(float currentWeight, Date currentWeightDate, float minWeight,
+                              Date minWeightDate, float maxWeight, Date maxWeightDate,
                               float bmi) {
         this.currentWeight = currentWeight;
         this.minWeight = minWeight;
@@ -59,27 +62,27 @@ public class BasicWeightDataDto {
         this.bmi = bmi;
     }
 
-    public String getCurrentWeightDate() {
+    public Date getCurrentWeightDate() {
         return currentWeightDate;
     }
 
-    public void setCurrentWeightDate(String currentWeightDate) {
+    public void setCurrentWeightDate(Date currentWeightDate) {
         this.currentWeightDate = currentWeightDate;
     }
 
-    public String getMinWeightDate() {
+    public Date getMinWeightDate() {
         return minWeightDate;
     }
 
-    public void setMinWeightDate(String minWeightDate) {
+    public void setMinWeightDate(Date minWeightDate) {
         this.minWeightDate = minWeightDate;
     }
 
-    public String getMaxWeightDate() {
+    public Date getMaxWeightDate() {
         return maxWeightDate;
     }
 
-    public void setMaxWeightDate(String maxWeightDate) {
+    public void setMaxWeightDate(Date maxWeightDate) {
         this.maxWeightDate = maxWeightDate;
     }
 }
