@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
-import pl.patryklubik.myweight.logic.SecurityUserService;
-import pl.patryklubik.myweight.model.User;
+import pl.patryklubik.myweight.logic.security.SecurityUserService;
+import pl.patryklubik.myweight.model.security.User;
 
 import javax.validation.Valid;
 

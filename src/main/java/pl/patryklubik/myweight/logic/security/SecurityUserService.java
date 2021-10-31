@@ -1,4 +1,4 @@
-package pl.patryklubik.myweight.logic;
+package pl.patryklubik.myweight.logic.security;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import pl.patryklubik.myweight.model.UserDetailsImpl;
-import pl.patryklubik.myweight.model.User;
-import pl.patryklubik.myweight.model.UserRepository;
+import pl.patryklubik.myweight.model.security.UserDetailsImpl;
+import pl.patryklubik.myweight.model.security.User;
+import pl.patryklubik.myweight.model.security.UserRepository;
 
 import java.util.Optional;
 

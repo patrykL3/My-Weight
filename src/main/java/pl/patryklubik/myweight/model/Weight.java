@@ -1,6 +1,7 @@
 package pl.patryklubik.myweight.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.patryklubik.myweight.model.security.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

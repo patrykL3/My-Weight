@@ -1,6 +1,8 @@
 package pl.patryklubik.myweight.model;
 
 
+import pl.patryklubik.myweight.model.security.User;
+
 import java.util.Optional;
 
 

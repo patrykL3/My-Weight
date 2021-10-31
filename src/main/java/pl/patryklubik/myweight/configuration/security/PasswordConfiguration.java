@@ -1,4 +1,4 @@
-package pl.patryklubik.myweight.security;
+package pl.patryklubik.myweight.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

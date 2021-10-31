@@ -1,9 +1,10 @@
 package pl.patryklubik.myweight.logic;
 
 import org.springframework.stereotype.Service;
+import pl.patryklubik.myweight.logic.security.SecurityUserService;
 import pl.patryklubik.myweight.model.PersonalData;
 import pl.patryklubik.myweight.model.PersonalDataRepository;
-import pl.patryklubik.myweight.model.User;
+import pl.patryklubik.myweight.model.security.User;
 
 
 /**

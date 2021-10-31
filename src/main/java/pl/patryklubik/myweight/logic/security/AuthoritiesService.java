@@ -1,11 +1,11 @@
-package pl.patryklubik.myweight.logic;
+package pl.patryklubik.myweight.logic.security;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import pl.patryklubik.myweight.model.Permission;
-import pl.patryklubik.myweight.model.PermissionRepository;
-import pl.patryklubik.myweight.model.Role;
-import pl.patryklubik.myweight.model.RoleRepository;
+import pl.patryklubik.myweight.model.security.Permission;
+import pl.patryklubik.myweight.model.security.PermissionRepository;
+import pl.patryklubik.myweight.model.security.Role;
+import pl.patryklubik.myweight.model.security.RoleRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;

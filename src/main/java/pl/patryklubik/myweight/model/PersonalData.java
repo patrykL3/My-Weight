@@ -1,5 +1,7 @@
 package pl.patryklubik.myweight.model;
 
+import pl.patryklubik.myweight.model.security.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

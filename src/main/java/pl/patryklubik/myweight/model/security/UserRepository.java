@@ -1,4 +1,4 @@
-package pl.patryklubik.myweight.model;
+package pl.patryklubik.myweight.model.security;
 
 import java.util.Optional;
 

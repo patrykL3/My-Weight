@@ -3,9 +3,11 @@ package pl.patryklubik.myweight.logic;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import pl.patryklubik.myweight.logic.security.SecurityUserService;
 import pl.patryklubik.myweight.model.*;
 import pl.patryklubik.myweight.model.dto.BasicWeightDataDto;
 import pl.patryklubik.myweight.model.dto.WeightDto;
+import pl.patryklubik.myweight.model.security.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
