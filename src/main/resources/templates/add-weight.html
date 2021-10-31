@@ -17,7 +17,7 @@
 <main>
     <div class="container">
 
-        <form class="form-signin green-border mt-5 rounded-2 " method="post" action="#" th:action="@{/add-weight}">
+        <form class="form-signin green-border mt-5 rounded-2 " method="post" action="#" th:action="@{/add-weight}" th:object="${weight}">
             <h2 class="form-signin-heading text-center font-weight-bold  mb-3">Nowy pomiar</h2>
 
             <div class="form-group input-group pb-0">
@@ -29,7 +29,7 @@
                         </svg>
                     </div>
                 </div>
-                <input type="number" step="0.1" th:value="${value}" id="value" name="value"  class="form-control green"
+                <input type="number" step="0.1" th:field="*{value}" class="form-control green"
                        required="" autofocus=""
                        placeholder="Waga (kg)"
                        value="">
@@ -42,7 +42,7 @@
                         </svg>
                     </div>
                 </div>
-                <input type="date" id="date" name="date" th:value="${date}" class="form-control green" required="">
+                <input type="date" th:field="*{date}" class="form-control green" required="">
             </div>
 
             <button class="btn btn-lg btn-success btn-block mt-3" type="submit">
@@ -69,6 +69,7 @@
 
     <th:block th:include="_common-components :: scripts" />
     <script src="/js/alert-fade-out.js"></script>
+    <script src="/js/change-zero-to-empty-value.js"></script>
     <script src="/js/automatic-date-filling.js"></script>
 </body>
 </html>

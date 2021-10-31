@@ -56,7 +56,9 @@ public class LoggedInUserController {
     }
 
     @GetMapping("add-weight")
-    public String getAddWeightPage() {
+    public String getAddWeightPage(Model model) {
+        model.addAttribute("weight", new Weight());
+
         return "add-weight";
     }
 
@@ -110,7 +112,7 @@ public class LoggedInUserController {
     }
 
     @PostMapping("add-weight")
-    public String addWeight(@ModelAttribute("weight") @Valid Weight newWeight,
+    public String addWeight(@ModelAttribute("weight") @Valid Weight weight,
                                 BindingResult bindingResult,
                                 Model model) {
 
@@ -124,7 +126,7 @@ public class LoggedInUserController {
         }
 
         try {
-            weightService.save(newWeight);
+            weightService.save(weight);
             model.addAttribute(successModelAttributeName, "Pomiar dodany");
             return pageToReturn;
         } catch (ResponseStatusException e) {
