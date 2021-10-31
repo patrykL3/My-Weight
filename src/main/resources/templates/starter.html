@@ -38,9 +38,9 @@
 
         <div class="row justify-content-center height-6 mt-4">
             <div class="col-md-4 rounded-2 text-center pt-3 pb-0"
-                 th:classappend="${bmi_level_correct} == true ? 'bg-success' : 'bg-warning'">
+                 th:classappend="${bmiLevelCorrect} == true ? 'bg-success' : 'bg-warning'">
                 <p class ="font-size-1-5 font-weight-bold mb-1" th:text="'BMI: ' + |${basicWeightData.bmi}|"></p>
-                <p class="font-size-0-8" th:text="|${description_of_bmi_level}|"></p>
+                <p class="font-size-0-8" th:text="|${descriptionOfBmiLevel}|"></p>
             </div>
         </div>
 

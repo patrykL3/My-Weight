@@ -55,13 +55,13 @@
             </button>
         </form>
 
-        <div  th:if="${message_error != null}" class="row alert justify-content-center height-3 mt-4">
+        <div  th:if="${messageError != null}" class="row alert justify-content-center height-3 mt-4">
             <div class="col-md-3 col-6 rounded-2 font-weight-bold text-center bg-danger pt-2 pb-2"><span
-                    th:text="${message_error}"></span></div>
+                    th:text="${messageError}"></span></div>
         </div>
-        <div  th:if="${message_success != null}" class="row alert justify-content-center height-3 mt-4">
+        <div  th:if="${messageSuccess != null}" class="row alert justify-content-center height-3 mt-4">
             <div class="col-md-3 col-6 rounded-2 font-weight-bold text-center bg-success pt-2 pb-2"><span
-                    th:text="${message_success}"></span></div>
+                    th:text="${messageSuccess}"></span></div>
         </div>
 
     </div>

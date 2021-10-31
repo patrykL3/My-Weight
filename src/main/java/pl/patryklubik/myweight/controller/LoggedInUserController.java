@@ -1,6 +1,5 @@
 package pl.patryklubik.myweight.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,10 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.patryklubik.myweight.logic.PersonalDataService;
 import pl.patryklubik.myweight.logic.WeightService;
 import pl.patryklubik.myweight.model.*;
-import pl.patryklubik.myweight.model.dto.WeightDto;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 /**
@@ -26,6 +23,7 @@ public class LoggedInUserController {
     private final PersonalDataService personalDataService;
     private final WeightService weightService;
 
+
     public LoggedInUserController(PersonalDataService personalDataService, WeightService weightService) {
         this.personalDataService = personalDataService;
         this.weightService = weightService;
@@ -33,23 +31,19 @@ public class LoggedInUserController {
 
     @GetMapping("starter")
     public String getStarterPage(Model model) {
-
-        String nameFieldsOfBmiLevel = "description_of_bmi_level";
-        String nameFieldsOfCorrectBmiLevel = "bmi_level_correct";
         String descriptionOfCorrectBmiLevel = "Wartość BMI w prawidłowym zakresie (18,5 - 24,9)";
         String descriptionOfIncorrectBmiLevel = "Wartość BMI nie jest w prawidłowym zakresie (18,5 - 24,9)";
 
         if(personalDataService.isPersonalDataExists() && weightService.isWeightDataExists()) {
             boolean bmiLevelCorrect = weightService.isLoggedInUsersBMILevelCorrect();
-            model.addAttribute("personalData", personalDataService.getPersonalDataLoggedInUser());
-            model.addAttribute("basicWeightData", weightService.getBasicWeightDataLoggedInUser());
+            model.addAttribute(ThymeleafAttributes.PERSONAL_DATA.getName(), personalDataService.getPersonalDataLoggedInUser());
+            model.addAttribute(ThymeleafAttributes.BASIC_WEIGHT_DATA.getName(), weightService.getBasicWeightDataLoggedInUser());
+            model.addAttribute(ThymeleafAttributes.BMI_LEVEL_CORRECT.getName(), bmiLevelCorrect);
 
-
-            model.addAttribute(nameFieldsOfCorrectBmiLevel, bmiLevelCorrect);
             if(bmiLevelCorrect) {
-                model.addAttribute(nameFieldsOfBmiLevel, descriptionOfCorrectBmiLevel);
+                model.addAttribute(ThymeleafAttributes.DESCRIPTION_OF_BMI_LEVEL.getName(), descriptionOfCorrectBmiLevel);
             } else {
-                model.addAttribute(nameFieldsOfBmiLevel, descriptionOfIncorrectBmiLevel);
+                model.addAttribute(ThymeleafAttributes.DESCRIPTION_OF_BMI_LEVEL.getName(), descriptionOfIncorrectBmiLevel);
             }
         }
         return "starter";
@@ -57,20 +51,44 @@ public class LoggedInUserController {
 
     @GetMapping("add-weight")
     public String getAddWeightPage(Model model) {
-        model.addAttribute("weight", new Weight());
+        model.addAttribute(ThymeleafAttributes.WEIGHT.getName(), new Weight());
 
         return "add-weight";
     }
 
-    @GetMapping("chart")
-    public String getChartPage() {
-        return "chart";
+    @PostMapping("add-weight")
+    public String addWeight(@Valid Weight weight,
+                            BindingResult bindingResult,
+                            Model model) {
+        String pageToReturn = "add-weight";
+        model.addAttribute(ThymeleafAttributes.WEIGHT.getName());
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(ThymeleafAttributes.MESSAGE_ERROR.getName(), "Wypełnij wszystkie pola");
+            return pageToReturn;
+        }
+
+        try {
+            weightService.save(weight);
+            model.addAttribute(ThymeleafAttributes.MESSAGE_SUCCESS.getName(), "Pomiar dodany");
+            return pageToReturn;
+        } catch (ResponseStatusException e) {
+            model.addAttribute(ThymeleafAttributes.MESSAGE_ERROR.getName(), e.getReason());
+            return pageToReturn;
+        }
     }
 
+    @GetMapping("weight-history")
+    public String getWeightHistoryPage(Model model) {
+        model.addAttribute(ThymeleafAttributes.WEIGHT_HISTORY_DATA.getName(), weightService.getWeightHistoryDataLoggedInUser());
+        model.addAttribute(ThymeleafAttributes.EDITED_WEIGHT.getName(), new Weight());
+
+        return "weight-history";
+    }
 
     @PostMapping("edit-weight")
-    public String editWeight(@ModelAttribute("editedWeight") @Valid Weight editedWeight,
-                            Model model) {
+    public String editWeight(@Valid Weight editedWeight, Model model) {
+        model.addAttribute(ThymeleafAttributes.EDITED_WEIGHT.getName());
         try {
             weightService.update(editedWeight);
         } catch (ResponseStatusException e) {
@@ -89,80 +107,44 @@ public class LoggedInUserController {
         return "redirect:/weight-history";
     }
 
+    @GetMapping("chart")
+    public String getChartPage(Model model) {
+        model.addAttribute(ThymeleafAttributes.WEIGHT_HISTORY_DATA.getName(), weightService.getWeightHistoryDataLoggedInUser());
+
+        return "chart";
+    }
 
     @GetMapping("personal-data")
-    @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
     public String getPersonalDataPage(Model model) {
         PersonalData personalDataLoggedInUser = new PersonalData();
+
         if (personalDataService.isPersonalDataExists()) {
             personalDataLoggedInUser = personalDataService.getPersonalDataLoggedInUser();
         }
-        model.addAttribute("personalData", personalDataLoggedInUser);
+        model.addAttribute(ThymeleafAttributes.PERSONAL_DATA.getName(), personalDataLoggedInUser);
 
         return "personal-data";
     }
 
-    @GetMapping("weight-history")
-    @PreAuthorize("hasAnyRole('ROLE_STANDARD_USER')")
-    public String getWeightHistoryPage(Model model) {
-
-
-                model.addAttribute("editedWeight", new Weight());
-        return "weight-history";
-    }
-
-    @PostMapping("add-weight")
-    public String addWeight(@ModelAttribute("weight") @Valid Weight weight,
-                                BindingResult bindingResult,
-                                Model model) {
-
-        String pageToReturn = "add-weight";
-        String errorModelAttributeName = "message_error";
-        String successModelAttributeName = "message_success";
-
-        if (bindingResult.hasErrors()) {
-            model.addAttribute(errorModelAttributeName, "Wypełnij wszystkie pola");
-            return pageToReturn;
-        }
-
-        try {
-            weightService.save(weight);
-            model.addAttribute(successModelAttributeName, "Pomiar dodany");
-            return pageToReturn;
-        } catch (ResponseStatusException e) {
-            model.addAttribute(errorModelAttributeName, e.getReason());
-            return pageToReturn;
-        }
-    }
-
     @PostMapping("save-personal-data")
-    public String savePersonalData(@ModelAttribute("personalData")
-                                   @Valid PersonalData personalData,
-                            BindingResult bindingResult,
-                            Model model) {
-
+    public String savePersonalData(@Valid PersonalData personalData,
+                                   BindingResult bindingResult,
+                                   Model model) {
+        model.addAttribute(ThymeleafAttributes.PERSONAL_DATA.getName());
         String pageToReturn = "personal-data";
-        String errorModelAttributeName = "message_error";
-        String successModelAttributeName = "message_success";
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute(errorModelAttributeName, "Wypełnij wszystkie pola");
+            model.addAttribute(ThymeleafAttributes.MESSAGE_ERROR.getName(), "Wypełnij wszystkie pola");
             return pageToReturn;
         }
 
         try {
             personalDataService.save(personalData);
-            model.addAttribute(successModelAttributeName, "Zapisano dane");
+            model.addAttribute(ThymeleafAttributes.MESSAGE_SUCCESS.getName(), "Zapisano dane");
             return pageToReturn;
         } catch (ResponseStatusException e) {
-            model.addAttribute(errorModelAttributeName, e.getReason());
+            model.addAttribute(ThymeleafAttributes.MESSAGE_ERROR.getName(), e.getReason());
             return pageToReturn;
         }
-    }
-
-
-    @ModelAttribute("weightHistoryData")
-    List<WeightDto> getWeightHistoryDataLoggedInUser() {
-        return weightService.getWeightHistoryDataLoggedInUser();
     }
 }
