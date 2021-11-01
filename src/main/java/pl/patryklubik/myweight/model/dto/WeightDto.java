@@ -7,10 +7,11 @@ import java.util.Date;
 /**
  * Create by Patryk Łubik on 24.10.2021.
  */
+
 public class WeightDto {
-    private int id;
-    private float value;
-    private Date date;
+    private final int id;
+    private final float value;
+    private final Date date;
 
     public WeightDto(int id, float value, Date date) {
         this.id = id;
@@ -22,23 +23,11 @@ public class WeightDto {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public float getValue() {
         return value;
     }
 
-    public void setValue(float value) {
-        this.value = value;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

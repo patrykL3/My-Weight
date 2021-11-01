@@ -14,10 +14,10 @@ import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private String username;
-    private String password;
-    private boolean active;
-    private Set<SimpleGrantedAuthority> authorities;
+    private final String username;
+    private final String password;
+    private final boolean active;
+    private final Set<SimpleGrantedAuthority> authorities;
 
     public UserDetailsImpl(User user, Set<SimpleGrantedAuthority> authorities) {
         this.username = user.getUsername();

@@ -10,13 +10,13 @@ import java.util.Date;
 
 public class BasicWeightDataDto {
 
-    private float currentWeight;
-    private float minWeight;
-    private float maxWeight;
-    private float bmi;
-    private Date currentWeightDate;
-    private Date minWeightDate;
-    private Date maxWeightDate;
+    private final float currentWeight;
+    private final float minWeight;
+    private final float maxWeight;
+    private final float bmi;
+    private final Date currentWeightDate;
+    private final Date minWeightDate;
+    private final Date maxWeightDate;
 
     public BasicWeightDataDto(float currentWeight, Date currentWeightDate, float minWeight,
                               Date minWeightDate, float maxWeight, Date maxWeightDate,
@@ -34,55 +34,27 @@ public class BasicWeightDataDto {
         return currentWeight;
     }
 
-    public void setCurrentWeight(float currentWeight) {
-        this.currentWeight = currentWeight;
-    }
-
     public float getMinWeight() {
         return minWeight;
-    }
-
-    public void setMinWeight(float minWeight) {
-        this.minWeight = minWeight;
     }
 
     public float getMaxWeight() {
         return maxWeight;
     }
 
-    public void setMaxWeight(float maxWeight) {
-        this.maxWeight = maxWeight;
-    }
-
     public float getBmi() {
         return bmi;
-    }
-
-    public void setBmi(float bmi) {
-        this.bmi = bmi;
     }
 
     public Date getCurrentWeightDate() {
         return currentWeightDate;
     }
 
-    public void setCurrentWeightDate(Date currentWeightDate) {
-        this.currentWeightDate = currentWeightDate;
-    }
-
     public Date getMinWeightDate() {
         return minWeightDate;
     }
 
-    public void setMinWeightDate(Date minWeightDate) {
-        this.minWeightDate = minWeightDate;
-    }
-
     public Date getMaxWeightDate() {
         return maxWeightDate;
-    }
-
-    public void setMaxWeightDate(Date maxWeightDate) {
-        this.maxWeightDate = maxWeightDate;
     }
 }

@@ -9,7 +9,6 @@ import pl.patryklubik.myweight.model.dto.BasicWeightDataDto;
 import pl.patryklubik.myweight.model.dto.WeightDto;
 import pl.patryklubik.myweight.model.security.User;
 
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +25,9 @@ public class WeightService {
     private final WeightRepository weightRepository;
     private final PersonalDataRepository personalDataRepository;
     private final SecurityUserService securityUserService;
-    private final static String DATE_PATTERN = "dd-MM-yyyy";
 
+    private final static float LOWER_LIMIT_OF_CORRECT_BMI = 18.5f;
+    private final static float UPPER_LIMIT_OF_CORRECT_BMI = 24.9f;
 
     public WeightService(WeightRepository weightRepository, PersonalDataRepository personalDataRepository, SecurityUserService securityUserService) {
         this.weightRepository = weightRepository;
@@ -38,7 +38,6 @@ public class WeightService {
 
     public BasicWeightDataDto getBasicWeightDataLoggedInUser() {
         int loggedInUserId = securityUserService.getLoggedInUser().getId();
-        SimpleDateFormat formatters = new SimpleDateFormat(DATE_PATTERN);
 
         float currentWeight = getCurrentWeightUser(loggedInUserId);
         float minWeight = getMinWeightUser(loggedInUserId);
@@ -54,7 +53,6 @@ public class WeightService {
     }
 
     public List<WeightDto> getWeightHistoryDataLoggedInUser() {
-        SimpleDateFormat formatters = new SimpleDateFormat(DATE_PATTERN);
 
         return weightRepository.findByUser(securityUserService.getLoggedInUser())
                 .stream().map(weight -> new WeightDto(weight.getId(), weight.getValue(), weight.getDate()))
@@ -63,7 +61,7 @@ public class WeightService {
     }
 
     public boolean isLoggedInUsersBMILevelCorrect() {
-        return calculateBMILoggedInUser() > 18.5 && calculateBMILoggedInUser() < 24.9;
+        return calculateBMILoggedInUser() > LOWER_LIMIT_OF_CORRECT_BMI && calculateBMILoggedInUser() < UPPER_LIMIT_OF_CORRECT_BMI;
     }
 
     private float calculateBMILoggedInUser() {

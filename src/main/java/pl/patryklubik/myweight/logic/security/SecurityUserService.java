@@ -44,7 +44,7 @@ public class SecurityUserService implements UserDetailsService {
     public User save(User toCreate) {
 
         if(userRepository.existsByUsername(toCreate.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username is taken");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Nazwa użytkownika jest zajęta");
         }
 
         toCreate.setPassword(passwordEncoder.encode(toCreate.getPassword()));

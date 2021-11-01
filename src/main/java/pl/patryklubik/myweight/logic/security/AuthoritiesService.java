@@ -26,7 +26,7 @@ public class AuthoritiesService {
     }
 
 
-    public Set<SimpleGrantedAuthority> getAuthorities(Role role) {
+    Set<SimpleGrantedAuthority> getAuthorities(Role role) {
 
         Set<Permission> permissionsFromDb = permissionRepository.findByRoles(role);
 
@@ -38,7 +38,7 @@ public class AuthoritiesService {
         return simpleGrantedAuthorities;
     }
 
-    public Role findRoleByUserId(int userId) {
+    Role findRoleByUserId(int userId) {
 
         return roleRepository.findById(userId).get();
     }
