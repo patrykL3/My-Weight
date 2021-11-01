@@ -13,6 +13,7 @@ public enum ThymeleafAttributes {
     MESSAGE_SUCCESS("messageSuccess"),
     MESSAGE_ERROR("messageError"),
     MESSAGE("message"),
+    ERROR("error"),
     WEIGHT_HISTORY_DATA("weightHistoryData"),
     USER("user");
 
