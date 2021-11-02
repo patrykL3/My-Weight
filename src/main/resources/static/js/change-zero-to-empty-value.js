@@ -1,4 +1,4 @@
-jQuery(function () {
+jQuery(function() {
 
     changeZeroToEmptyValue('#age');
     changeZeroToEmptyValue('#height');
@@ -6,9 +6,9 @@ jQuery(function () {
 
     changeZeroToEmptyValue('#value');
 
-        function changeZeroToEmptyValue(id) {
-            if($(id).val() === '0' || $(id).val() === '0.0') {
-                $(id).val("");
-            }
+    function changeZeroToEmptyValue(id) {
+        if ($(id).val() === '0' || $(id).val() === '0.0') {
+            $(id).val("");
         }
+    }
 });

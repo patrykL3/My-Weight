@@ -1,4 +1,4 @@
-jQuery(function () {
+jQuery(function() {
     let date = new Date();
 
     let day = date.getDate();
