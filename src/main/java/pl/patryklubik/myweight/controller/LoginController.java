@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.patryklubik.myweight.model.ThymeleafAttributes;
+import pl.patryklubik.myweight.model.security.User;
 
 
 /**
@@ -22,6 +23,7 @@ public class LoginController {
 
     @GetMapping("login")
     public String getLoginPage(Model model, boolean error) {
+        model.addAttribute(ThymeleafAttributes.USER.getName(), new User());
         model.addAttribute(ThymeleafAttributes.ERROR.getName(), error);
         return "login";
     }
